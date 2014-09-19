@@ -1,0 +1,96 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/backgroundimage"
+    tools:context=".BookmarkActivity" >
+
+    <include
+        android:id="@+id/header_frnd_list"
+        layout="@layout/header_footer" />
+
+    <include
+        android:id="@+id/footer_frnd_list"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        layout="@layout/footer" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/footer_frnd_list"
+        android:layout_below="@id/header_frnd_list"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/blue"
+            android:gravity="center" >
+
+            <ImageView
+                android:id="@+id/imageview_home_friend"
+                android:layout_width="40dip"
+                android:layout_height="30dip"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/black" />
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="40dip"
+                android:layout_marginLeft="20dp"
+                android:gravity="center"
+                android:text="@string/listview_person_info_new"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imageview_back_friend"
+                android:layout_width="50dip"
+                android:layout_height="30dip"
+                android:layout_gravity="center_vertical"
+                android:background="@color/blue"
+                android:src="@drawable/backpress" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:weightSum="2" >
+
+            <Button
+                android:id="@+id/add_new_friend"
+                android:layout_width="fill_parent"
+                android:layout_height="40dip"
+                android:background="@drawable/buttoncolorchanger"
+                android:text="@string/button_frnd_list_new"
+                android:textColor="@color/darkcherryred   "
+                android:textSize="15sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical" >
+
+            <ListView
+                android:id="@+id/show_frnd_list_listView"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/listview_border"
+                android:divider="@android:color/transparent"
+                android:dividerHeight="5dp"
+                android:footerDividersEnabled="true"
+                android:headerDividersEnabled="true" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

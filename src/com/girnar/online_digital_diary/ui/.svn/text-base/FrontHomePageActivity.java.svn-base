@@ -1,0 +1,79 @@
+package com.girnar.online_digital_diary.ui;
+
+import java.util.List;
+import java.util.Vector;
+
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.Tracker;
+
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
+
+/**
+ * @author
+ * 
+ */
+public class FrontHomePageActivity extends FragmentActivity {
+    
+	List<Fragment> fragments;
+	static Boolean isLoginPageViewed = false;
+	CustomViewPager myPager;
+	private Tracker tracker;
+
+	@SuppressWarnings("deprecation")
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.viewpager);
+		EasyTracker.getInstance().setContext(getApplicationContext());
+		tracker = EasyTracker.getTracker();
+		tracker.trackView("Front page_Digital_Diary");
+		MyFragmentAdapter adapter;
+		myPager = (CustomViewPager) findViewById(R.id.myfivepanelpager);
+		/*
+		 * myPager.setAdapter(adapter); myPager.setCurrentItem(0);
+		 */
+		fragments = new Vector<Fragment>();
+
+		// for each fragment you want to add to the pager
+		Bundle page = new Bundle();
+		page.putString("url", "1");
+		Bundle page1 = new Bundle();
+		page.putString("url", "2");
+		fragments.add(Fragment.instantiate(this, MyFragment.class.getName(),
+				page));
+		fragments
+				.add(Fragment.instantiate(this, Second.class.getName(), page1));
+
+		// after adding all the fragments write the below lines
+
+		adapter = new MyFragmentAdapter(super.getSupportFragmentManager(),
+				fragments);
+
+		myPager.setAdapter(adapter);
+
+		myPager.setOnPageChangeListener(new PageChangeListenr());
+	}
+
+	private class PageChangeListenr implements ViewPager.OnPageChangeListener {
+		@Override
+		public void onPageSelected(int arg0) {
+			if (arg0 == 1) {
+				myPager.enableSwipe(false);
+			}
+			myPager.setCurrentItem(arg0);
+		}
+
+		@Override
+		public void onPageScrolled(int arg0, float arg1, int arg2) {
+		}
+
+		@Override
+		public void onPageScrollStateChanged(int arg0) {
+		}
+	}
+
+}

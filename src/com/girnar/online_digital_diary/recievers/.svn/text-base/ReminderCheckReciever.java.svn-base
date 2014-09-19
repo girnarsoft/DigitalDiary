@@ -1,0 +1,217 @@
+package com.girnar.online_digital_diary.recievers;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+
+import com.girnar.online_digital_diary.database.DbHelper;
+import com.girnar.online_digital_diary.ui.NotificationReceiver;
+
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.preference.PreferenceManager;
+import android.text.format.DateFormat;
+import android.widget.EditText;
+
+/**
+ * @author
+ * 
+ */
+public class ReminderCheckReciever extends BroadcastReceiver {
+
+	DbHelper db;
+	private int mYear, mMonth, mDay, hour, minute;
+	// private ArrayList<String> date = new ArrayList<String>();
+	// private ArrayList<String> time = new ArrayList<String>();
+	private ArrayList<String> ids = new ArrayList<String>();
+	private int id;
+	
+
+	@Override
+	public void onReceive(Context context, Intent intent) {
+		// TODO Auto-generated method stub
+
+		db = new DbHelper(context);
+		Date d = new Date();
+		@SuppressWarnings("unused")
+		CharSequence s = DateFormat.format("MMMM d, yyyy ", d.getTime());
+		System.out.println("current date" + d);
+		// id = 1;
+
+		db.open();
+		SharedPreferences preferences = PreferenceManager
+				.getDefaultSharedPreferences(context);
+		int id = preferences.getInt("id", 0);
+		Cursor cursor = db.getReminderMethodInfo(id);
+
+		if (cursor != null) {
+			cursor.moveToFirst();
+			Date currentdate;
+			currentdate = d;
+			System.out.println("current date" + currentdate);
+			Calendar calendar = Calendar.getInstance();
+			setmYear(calendar.get(Calendar.YEAR));
+			setmMonth(calendar.get(Calendar.MONTH));
+			setmDay(calendar.get(Calendar.DAY_OF_MONTH));
+
+			System.out.println("date is" + calendar);
+
+			for (int i = 0; i < cursor.getCount(); i++) {
+
+				SimpleDateFormat format = new SimpleDateFormat(
+						"dd-MM-yyyy hh:mm");
+				String ret_date = cursor.getString(1) + " "
+						+ cursor.getString(2);
+				Date date1 = null, date2 = null;
+				try {
+					date1 = format.parse(ret_date.trim());
+					Calendar c = Calendar.getInstance();
+					date2 = format.parse(format.format(c.getTime()));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				int hourdiff = (int) ((date1.getTime() - date2.getTime()) / 1000 / 3600);
+
+				System.out.println("hour diff = " + hourdiff);
+
+				if (hourdiff <= 0)
+					System.out.println("delete reminder");
+
+				else if (hourdiff > 0)
+					System.out.println("show reminder");
+				NotificationReceiver.setNotificationOnDateTime(context,
+						hourdiff * 60 * 60 * 1000, "message", (int) id);
+
+				cursor.moveToNext();
+
+			}
+			db.close();
+		}
+	}
+
+	/**
+	 * @return mYear;
+	 */
+	public int getmYear() {
+		return mYear;
+	}
+
+	/**
+	 * @param mYear
+	 */
+	public void setmYear(int mYear) {
+		this.mYear = mYear;
+	}
+
+	/**
+	 * @return mMonth
+	 */
+	public int getmMonth() {
+		return mMonth;
+	}
+
+	/**
+	 * @param mMonth
+	 */
+	public void setmMonth(int mMonth) {
+		this.mMonth = mMonth;
+	}
+
+	/**
+	 * @return mDay;
+	 */
+	public int getmDay() {
+		return mDay;
+	}
+
+	/**
+	 * @param mDay
+	 */
+	public void setmDay(int mDay) {
+		this.mDay = mDay;
+	}
+
+	/**
+	 * @return hour;
+	 */
+	public int getHour() {
+		return hour;
+	}
+
+	/**
+	 * @param hour
+	 */
+	public void setHour(int hour) {
+		this.hour = hour;
+	}
+
+	/**
+	 * @return minute;
+	 */
+	public int getMinute() {
+		return minute;
+	}
+
+	/**
+	 * @param minute
+	 */
+	public void setMinute(int minute) {
+		this.minute = minute;
+	}
+
+	/**
+	 * @return date;
+	 */
+	/*
+	 * public ArrayList<String> getDate() { return date; }
+	 *//**
+	 * @param date
+	 */
+	/*
+	 * public void setDate(ArrayList<String> date) { this.date = date; }
+	 *//**
+	 * @return time;
+	 */
+	/*
+	 * public ArrayList<String> getTime() { return time; }
+	 *//**
+	 * @param time
+	 */
+	/*
+	 * public void setTime(ArrayList<String> time) { this.time = time; }
+	 */
+	/**
+	 * @return id;
+	 */
+	public ArrayList<String> getIds() {
+		return ids;
+	}
+
+	/**
+	 * @param ids
+	 */
+	public void setIds(ArrayList<String> ids) {
+		this.ids = ids;
+	}
+
+	/**
+	 * @return id;
+	 */
+	public int getId() {
+		return id;
+	}
+
+	/**
+	 * @param id
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+}

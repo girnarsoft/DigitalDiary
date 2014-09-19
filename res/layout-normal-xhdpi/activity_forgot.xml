@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/forgotPage"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bck_grnd"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/header_login_page"
+        layout="@layout/header_footer" />
+
+    <ScrollView
+        android:id="@+id/scrol"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/header_login_page"
+        android:layout_marginBottom="50dp" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/username_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="25dp"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/forgot_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="AvenirNextCondensed"
+                    android:text="LOGIN"
+                    android:textColor="@color/black"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/editText_security_question"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/round_corner_edittext_back"
+                    android:focusable="false"
+                    android:inputType="text"
+                    android:padding="5dp"
+                    android:paddingLeft="5dp"
+                    android:textSize="20sp" >
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/pswd_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/username_text"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical" >
+
+                <EditText
+                    android:id="@+id/editText_answer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/round_corner_edittext_back"
+                    android:hint="Enter Answer"
+                    android:inputType="text"
+                    android:padding="5dp"
+                    android:paddingLeft="5dp"
+                    android:textSize="20sp" >
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/change_butn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/pswd_text"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="25dp"
+                android:orientation="vertical" >
+
+                <Button
+                    android:id="@+id/button_forgot_submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/greenbutton"
+                    android:padding="5dp"
+                    android:text="Change Password"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" >
+                </Button>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/pswd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/change_butn"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical" >
+
+                <EditText
+                    android:id="@+id/editText_new_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/round_corner_edittext_back"
+                    android:hint="Enter New Password"
+                    android:inputType="text"
+                    android:padding="5dp"
+                    android:paddingLeft="5dp"
+                    android:textSize="20sp"
+                     >
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/login_butn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/pswd"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical" 
+                >
+
+                <Button
+                    android:id="@+id/button_new_pass_submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/greenbutton"
+                    android:padding="5dp"
+                    android:text="Submit"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                     >
+                </Button>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/field6_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/change_butn"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical" >
+
+                <EditText
+                    android:id="@+id/edittext_new_security_ques"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/round_corner_edittext_back"
+                    android:hint="Security Question"
+                    android:inputType="text"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="2dp"
+                    android:textSize="20sp"
+                   >
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/field7_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/field6_text"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical" >
+
+                <EditText
+                    android:id="@+id/edittext_new_security_answer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/round_corner_edittext_back"
+                    android:hint="Enter Your Answer"
+                    android:inputType="text"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="2dp"
+                    android:textSize="20sp"
+                      >
+                </EditText>
+            </LinearLayout>
+             <LinearLayout
+                android:id="@+id/layout_change_question_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/field7_text"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical" 
+                >
+
+                <Button
+                    android:id="@+id/button_change_question"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/greenbutton"
+                    android:padding="5dp"
+                    android:text="Submit"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                     >
+                </Button>
+            </LinearLayout>
+            
+        </RelativeLayout>
+    </ScrollView>
+
+    <include
+        android:layout_alignParentBottom="true"
+        layout="@layout/footer" />
+
+</RelativeLayout>

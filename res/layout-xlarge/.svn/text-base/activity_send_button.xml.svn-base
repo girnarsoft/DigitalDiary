@@ -1,0 +1,105 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/backgroundimage"
+    tools:context=".SendButtonActivity" >
+
+    <include
+        android:id="@+id/send_bitton_leniar_layout"
+        layout="@layout/header_footer" />
+
+    <include layout="@layout/footer" />
+
+    <LinearLayout
+        android:id="@+id/linear_layout_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="70dp"
+        android:layout_below="@id/send_bitton_leniar_layout"
+        android:background="@color/blue"
+        android:gravity="center" >
+
+        <ImageView
+            android:id="@+id/imageview_home_bookmark"
+            android:layout_width="50dip"
+            android:layout_height="50dip"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/black" />
+
+        <TextView
+            android:layout_width="600dp"
+            android:layout_height="40dip"
+            android:layout_marginLeft="20dp"
+            android:gravity="center"
+            android:text="@string/textview_send_information"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imageview_back_bookmark"
+            android:layout_width="50dip"
+            android:layout_height="50dip"
+            android:layout_gravity="center_vertical"
+            android:background="@color/blue"
+            android:src="@drawable/backpress" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linear_layout_parent"
+        android:layout_marginTop="300dp"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/imageView_send_personal_info"
+            android:layout_width="150dip"
+            android:layout_height="140dip"
+            android:background="@drawable/next_button"
+            android:src="@drawable/personalimage" />
+
+        <TextView
+            android:layout_width="148dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/textview_home_page_personal_info"
+            android:textColor="@color/darkcherryred   "
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imageView_send_other_info"
+            android:layout_width="150dip"
+            android:layout_height="140dip"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/next_button"
+            android:src="@drawable/user" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/textview_home_page_other_info"
+            android:textColor="@color/darkcherryred   "
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imageView_send_bookmark"
+            android:layout_width="150dip"
+            android:layout_height="140dip"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/next_button"
+            android:src="@drawable/addbk" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/textview_home_page_bookmark_info"
+            android:textColor="@color/darkcherryred   "
+            android:textSize="25sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,74 @@
+package com.girnar.online_digital_diary.ui;
+
+import java.util.List;
+import java.util.Vector;
+
+import com.girnar.online_digital_diary.ui.R;
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.Tracker;
+
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
+
+/**
+ * @author
+ * 
+ */
+public class ViewPagerActivity extends FragmentActivity {
+
+	private ViewPager myPager;
+	private final String TAG = "ViewPagerActivity";
+	private Tracker tracker;
+
+	@SuppressWarnings("deprecation")
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		Log.d(TAG, "on create called...");
+		setContentView(R.layout.activity_view_pager);
+		EasyTracker.getInstance().setContext(getApplicationContext());
+		tracker = EasyTracker.getTracker();
+		tracker.trackView("ViewPager page");
+		MyFragmentAdapter adapter;
+		ViewPager myPager = (ViewPager) findViewById(R.id.myfivepanelpager);
+		/*
+		 * myPager.setAdapter(adapter); myPager.setCurrentItem(0);
+		 */
+		List<Fragment> fragments = new Vector<Fragment>();
+
+		// for each fragment you want to add to the pager
+		Bundle page = new Bundle();
+		page.putString("url", "1");
+		Bundle page1 = new Bundle();
+		page.putString("url", "2");
+		fragments.add(Fragment.instantiate(this,
+				FrontHomePageActivity.class.getName(), page));
+		fragments.add(Fragment.instantiate(this,
+				LoginPageActivity.class.getName(), page1));
+
+		// after adding all the fragments write the below lines
+
+		adapter = new MyFragmentAdapter(super.getSupportFragmentManager(),
+				fragments);
+
+		myPager.setAdapter(adapter);
+	}
+
+	/**
+	 * @return myPager
+	 */
+	public ViewPager getMyPager() {
+		return myPager;
+	}
+
+	/**
+	 * @param myPager
+	 */
+	public void setMyPager(ViewPager myPager) {
+		this.myPager = myPager;
+	}
+
+}

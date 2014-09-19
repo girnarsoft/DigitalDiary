@@ -1,0 +1,180 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bck_grnd"
+    android:id="@+id/activity_send_account_info"
+    tools:context=".BookmarkActivity" >
+
+    <include
+        android:id="@+id/header_send_information"
+        layout="@layout/header_footer" />
+
+    <include
+        android:id="@+id/footer_send_information"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        layout="@layout/footer" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/header_send_information"
+        android:layout_marginBottom="55dp"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/layout_button_add_new_account"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/li"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center" >
+
+            <Button
+                android:id="@+id/button_send_account_information"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/greenbutton"
+                android:padding="5dp"
+                android:text="@string/button_send_account_info"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/layout_button_add_new_account"
+            android:layout_alignParentTop="true"
+           
+            android:layout_marginTop="5dp"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp" >
+
+                <ImageButton
+                    android:id="@+id/img_button_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@color/login_button"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="2dp"
+                    android:paddingTop="2dp"
+                    android:src="@drawable/search_icon" />
+
+                <EditText
+                    android:id="@+id/edittext_search_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toLeftOf="@id/img_button_search"
+                    android:background="@drawable/round_corner_edittext_back"
+                    android:hint="@string/edittext_search"
+                    android:padding="5dp"
+                    android:paddingLeft="5dp"
+                    android:textSize="20sp" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/text_no_acc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="AvenirNextCondensed"
+                android:text="No Friend Information"
+                android:textSize="20sp"
+                android:visibility="gone" />
+			
+            <RelativeLayout 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                
+                <TextView
+            android:id="@+id/send_adapter_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+          android:layout_marginLeft="20dp"
+            android:fontFamily="AvenirNextCondensed"
+            android:text="All"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+             />
+
+        <CheckBox
+            android:layout_alignParentRight="true"
+            android:id="@+id/checkBoxSendAllAccountInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+          
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="5dp"
+            android:button="@drawable/checkboxselector" />
+            </RelativeLayout>
+            
+            <ListView
+             
+                android:layout_marginTop="10dp"
+                android:id="@+id/sendinfo_listView_account"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:divider="@color/lightbrown"
+                android:dividerHeight=".2dp"
+                android:footerDividersEnabled="true"
+                android:headerDividersEnabled="true" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>
+
+<!-- <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+      android:background="@color/bck_grnd"
+    tools:context=".SendListViewActivity" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <include
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/title_send_info" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical" >
+
+            <ListView
+                android:id="@+id/sendinfo_listView_account"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+               
+                android:divider="@color/black"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="true"
+                android:headerDividersEnabled="true" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout> -->

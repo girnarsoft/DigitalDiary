@@ -1,0 +1,427 @@
+package com.girnar.online_digital_diary.ui;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.DatePickerDialog.OnDateSetListener;
+import android.app.Dialog;
+import android.app.TimePickerDialog;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.media.MediaPlayer;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TimePicker;
+import android.widget.Toast;
+
+import com.girnar.online_digital_diary.database.DbHelper;
+import com.girnar.online_digital_diary.interfaces.ImportantMethod;
+import com.girnar.online_digital_diary.ui.R;
+import com.google.ads.Ad;
+import com.google.ads.AdListener;
+import com.google.ads.AdRequest;
+import com.google.ads.AdSize;
+import com.google.ads.AdView;
+import com.google.ads.AdRequest.ErrorCode;
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.Tracker;
+
+/**
+ * @author
+ * 
+ */
+public class ReminderInfoActivity extends Activity implements ImportantMethod,
+		OnClickListener, OnDateSetListener {
+	private Button cancel, setdate, settime, save;
+	private DbHelper db = new DbHelper(this);
+	private EditText title, description;
+
+	private final String TAG = "ReminderInfoActivity";
+	MediaPlayer mediaPlayer;
+	private ImageView back, home;
+	static final int DATE_DIALOG_ID = 0;
+	private int mYear, mMonth, mDay, hour, minute;
+	static final int TIME_DIALOG_ID = 999;
+	UiDatePicker uiDatePicker;
+	UiTimePicker uiTimePicker;
+	private Tracker tracker;
+	private ArrayList<String> date = new ArrayList<String>();
+	private ArrayList<String> time = new ArrayList<String>();
+	@SuppressWarnings("unused")
+	private ArrayList<String> ids = new ArrayList<String>();
+	private ArrayList<Cursor> remList = new ArrayList<Cursor>();
+
+	@SuppressWarnings("deprecation")
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		Log.d(TAG, "on create called...");
+		setContentView(R.layout.activity_reminder_info);
+		EasyTracker.getInstance().setContext(getApplicationContext());
+		tracker = EasyTracker.getTracker();
+		tracker.trackView("Reminders");
+		getIds();
+		addListener();
+		setItemsText();
+
+		addGoogleAds();
+
+		Calendar c = Calendar.getInstance();
+		mYear = c.get(Calendar.YEAR);
+		mMonth = c.get(Calendar.MONTH);
+		mDay = c.get(Calendar.DAY_OF_MONTH);
+
+		Application.isActivityVisible();
+
+		uiDatePicker = new UiDatePicker(this, false);
+		uiTimePicker = new UiTimePicker(this, false);
+	}
+
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		finish();
+	}
+
+	void addGoogleAds() {
+		AdView adView = new AdView(this, AdSize.SMART_BANNER, getResources()
+				.getString(R.string.google_ads_id));
+		LinearLayout layout = (LinearLayout) findViewById(R.id.googleads);
+		layout.addView(adView);
+		AdRequest adRequest = new AdRequest();
+		final LinearLayout pBar = (LinearLayout) findViewById(R.id.gooleaddload);
+		pBar.setVisibility(View.VISIBLE);
+		// adRequest.addTestDevice(AdRequest.TEST_EMULATOR);
+		adView.setAdListener(new AdListener() {
+
+			@Override
+			public void onReceiveAd(Ad arg0) {
+				pBar.setVisibility(View.GONE);
+			}
+
+			@Override
+			public void onPresentScreen(Ad arg0) {
+			}
+
+			@Override
+			public void onLeaveApplication(Ad arg0) {
+			}
+
+			/*
+			 * @Override public void onFailedToReceiveAd(Ad arg0, ErrorCode
+			 * arg1) { }
+			 */
+			@Override
+			public void onDismissScreen(Ad arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onFailedToReceiveAd(Ad arg0, ErrorCode arg1) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+		adView.loadAd(adRequest);
+
+	}
+
+	/**
+	 * insert the value in the database
+	 * 
+	 * @return id1
+	 */
+	public long databaseHelper() {
+		//
+
+		// TODO Auto-generated method stub
+		String title = this.title.getText().toString();
+		String description = this.description.getText().toString();
+		String setdate = this.setdate.getText().toString();
+
+		String settime = this.settime.getText().toString();
+
+		db.open();
+		SharedPreferences preferences = PreferenceManager
+				.getDefaultSharedPreferences(this);
+		int id = preferences.getInt("id", 0);
+		long id1 = db.insertinfoReminder(title, description, setdate, settime,
+				id);
+
+		db.close();
+		return id1;
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		if (v == cancel) {
+			/*
+			 * Intent intent1 = new Intent(this, ShowReminderActivity.class);
+			 * startActivity(intent1);
+			 */
+			finish();
+
+		}
+
+		if (v == back) {
+			/*
+			 * Intent intent = new Intent(this, ShowReminderActivity.class);
+			 * startActivity(intent);
+			 */
+			finish();
+
+		}
+		if (v == home) {
+			ShowReminderActivity.activity.finish();
+			finish();
+
+		}
+
+	}
+
+	private void setItemsText() {
+		Bundle bundle = getIntent().getBundleExtra("NotificationBundle");
+
+		if (bundle == null)
+			return;
+
+		description.setText(bundle.getString("NotificationDesc"));
+		uiTimePicker
+				.setTime(bundle.getLong("NotificationTimeInMills"), settime);
+		uiDatePicker.setDate(bundle.getLong("NotificationTimeInMills"),
+				setdate, "-");
+
+	}
+
+	private void setOtherReminder() {
+
+		if (!validate()) {
+			Application.showOKAleart(ReminderInfoActivity.this, "Error",
+					"Incorrect Information!");
+			return;
+		}
+
+		boolean result = validate();
+
+		long id = 0;
+		if (result) {
+			id = databaseHelper();
+
+		}
+
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(uiDatePicker.mYear, uiDatePicker.mMonth,
+				uiDatePicker.mDay, uiTimePicker.mHour, uiTimePicker.mMinute, 0);
+
+		NotificationReceiver.setNotificationOnDateTime(this, uiTimePicker
+				.timeInMills(uiDatePicker.mYear, uiDatePicker.mMonth,
+						uiDatePicker.mDay), description.getText().toString(),
+				(int) id);
+
+		if (result) {
+
+			finish();
+
+		}
+
+	}
+
+	@Override
+	public void getIds() {
+		// TODO Auto-generated method stub
+		cancel = (Button) findViewById(R.id.button_reminder_info_cancel);
+		save = (Button) findViewById(R.id.button_reminder_info_save);
+		setdate = (Button) findViewById(R.id.reminder_info_setdate);
+		back = (ImageView) findViewById(R.id.imageview_back_reminder_info);
+		settime = (Button) findViewById(R.id.reminder_info_setTime);
+		home = (ImageView) findViewById(R.id.imageview_home_reminder_info);
+		title = (EditText) findViewById(R.id.edittext_title_reminder);
+		description = (EditText) findViewById(R.id.edittext_description_reminder);
+	}
+
+	OtherReminderClickListner reminderClickListner = new OtherReminderClickListner() {
+
+		@Override
+		public void onTimeClick(View view) {
+			// TODO Auto-generated method stub
+			uiTimePicker.showDialog(view);
+		}
+
+		@Override
+		public void onDateClick(View view) {
+			// TODO Auto-generated method stub
+			uiDatePicker.showDialog(view, "-");
+		}
+
+		@Override
+		public void onDescriptionClick() {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void onSetRemenderClick() {
+			// TODO Auto-generated method stub
+			setOtherReminder();
+		}
+
+		@Override
+		public void onDayClick() {
+			// TODO Auto-generated method stub
+
+		}
+
+	};
+
+	@Override
+	public void addListener() {
+		// TODO Auto-generated method stub
+		cancel.setOnClickListener(this);
+		save.setOnClickListener(reminderClickListner);
+		setdate.setOnClickListener(reminderClickListner);
+		settime.setOnClickListener(reminderClickListner);
+		back.setOnClickListener(this);
+		home.setOnClickListener(this);
+
+	}
+
+	protected Dialog onCreateDialog(int id) {
+		switch (id) {
+		case DATE_DIALOG_ID:
+			return new DatePickerDialog(this, mDateSetListener, mYear, mMonth,
+					mDay);
+
+		}
+		switch (id) {
+		case TIME_DIALOG_ID:
+			return new TimePickerDialog(this, timePicker, hour, minute, false);
+		}
+
+		return null;
+
+	}
+
+	private DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+
+		public void onDateSet(DatePicker view, int year, int monthOfYear,
+				int dayOfMonth) {
+			mYear = year;
+			mMonth = monthOfYear;
+			mDay = dayOfMonth;
+			setdate.setText(new StringBuilder().append(mDay).append("/")
+					.append(mMonth + 1).append("/").append(mYear));
+
+		}
+
+	};
+	private TimePickerDialog.OnTimeSetListener timePicker = new TimePickerDialog.OnTimeSetListener() {
+
+		@Override
+		public void onTimeSet(TimePicker view, int hourOfDay, int minute1) {
+			// TODO Auto-generated method stub
+			hour = hourOfDay;
+			minute = minute1;
+			settime.setText(new StringBuilder().append(pad(hour)).append(":")
+					.append(pad(minute)));
+
+		}
+	};
+
+	private static String pad(int c) {
+		if (c >= 10)
+			return String.valueOf(c);
+		else
+			return "0" + String.valueOf(c);
+	}
+
+	@Override
+	public void onDateSet(DatePicker view, int year, int monthOfYear,
+			int dayOfMonth) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public boolean validate() {
+		// TODO Auto-generated method stub
+		if (title.getText().toString().length() == 0) {
+			Toast.makeText(this, "Please fill title", Toast.LENGTH_SHORT)
+					.show();
+			return false;
+		} else if (description.getText().toString().length() == 0) {
+			Toast.makeText(this, "Please fill description", Toast.LENGTH_SHORT)
+					.show();
+			return false;
+		} else if (setdate.getText().toString().length() == 0) {
+			Toast.makeText(this, "Plese fill date", Toast.LENGTH_SHORT).show();
+			return false;
+		} else if (settime.getText().toString().length() == 0) {
+			Toast.makeText(this, "Please fill the time", Toast.LENGTH_SHORT)
+					.show();
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	/**
+	 * @return date;
+	 */
+	public ArrayList<String> getDate() {
+		return date;
+	}
+
+	/**
+	 * @param date
+	 */
+	public void setDate(ArrayList<String> date) {
+		this.date = date;
+	}
+
+	/**
+	 * @return time;
+	 */
+	public ArrayList<String> getTime() {
+		return time;
+	}
+
+	/**
+	 * @param time
+	 */
+	public void setTime(ArrayList<String> time) {
+		this.time = time;
+	}
+
+	/**
+	 * @param ids
+	 */
+	public void setIds(ArrayList<String> ids) {
+		this.ids = ids;
+	}
+
+	/**
+	 * @return remList;
+	 */
+	public ArrayList<Cursor> getRemList() {
+		return remList;
+	}
+
+	/**
+	 * @param remList
+	 */
+	public void setRemList(ArrayList<Cursor> remList) {
+		this.remList = remList;
+	}
+}

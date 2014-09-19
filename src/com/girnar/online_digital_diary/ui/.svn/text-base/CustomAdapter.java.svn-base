@@ -1,0 +1,99 @@
+package com.girnar.online_digital_diary.ui;
+
+import java.util.ArrayList;
+
+import android.app.Activity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.girnar.online_digital_diary.database.DbHelper;
+
+/**
+ * @author
+ * 
+ */
+public class CustomAdapter extends ArrayAdapter<String> implements
+		OnClickListener {
+	private final Activity activity;
+	private final ArrayList<String> data, ids;
+	private final DbHelper dbHelper;
+	private final String table_name, table_id;
+
+	/**
+	 * @param context
+	 * @param data
+	 * @param ids
+	 * @param table_name
+	 * @param table_id
+	 */
+	public CustomAdapter(Activity context, ArrayList<String> data,
+			ArrayList<String> ids, String table_name, String table_id) {
+		super(context, R.layout.custom_adapter, data);
+		this.activity = context;
+		this.data = data;
+		this.ids = ids;
+		this.table_name = table_name;
+		this.table_id = table_id;
+		dbHelper = new DbHelper(context);
+	}
+
+	static class Holder {
+		public TextView textView;
+		public ImageView imageView;
+
+	}
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		// TODO Auto-generated method stub
+		View view = convertView;
+
+		if (view == null) {
+
+			Holder holder = new Holder();
+			LayoutInflater inflater = activity.getLayoutInflater();
+			view = inflater.inflate(R.layout.custom_adapter, null);
+			holder.textView = (TextView) view
+					.findViewById(R.id.listView_textView);
+			holder.imageView = (ImageView) view
+					.findViewById(R.id.listView_imageView);
+			holder.imageView.setOnClickListener(this);
+			view.setTag(holder);
+		}
+
+		Holder holder1 = (Holder) view.getTag();
+
+		holder1.textView.setText(data.get(position));
+		holder1.imageView.setImageDrawable(activity.getResources().getDrawable(
+				R.drawable.buttoncon));
+		holder1.imageView.setTag(position);
+
+		return view;
+
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+
+		int position = (Integer) v.getTag();
+		int id = Integer.parseInt(ids.get(position));
+
+		@SuppressWarnings("unused")
+		String name = data.get(position);
+
+		dbHelper.open();
+
+		dbHelper.deleteMethod(id, table_name, table_id);
+		ids.remove(position);
+		data.remove(position);
+		notifyDataSetChanged();
+		dbHelper.close();
+	}
+
+}

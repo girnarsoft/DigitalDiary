@@ -1,0 +1,116 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+     android:background="@color/bck_grnd"
+    tools:context=".SendButtonActivity" >
+
+    
+
+     <include
+        android:id="@+id/header_other_info"
+        layout="@layout/header_footer" />
+
+    <include
+        android:id="@+id/footer_other_info"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        layout="@layout/footer" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="55dp"
+        android:layout_below="@id/header_other_info"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="#f6f0ec"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/imageView_send_other_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bank_background"
+            android:orientation="horizontal"
+            android:padding="3dp" >
+
+            <ImageView
+                android:layout_width="50dp"
+                 android:layout_height="50dp"
+                android:background="#ffffff"
+                android:src="@drawable/bank_bg" />
+
+            <Button
+                android:id="@+id/bank_account_info"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/bank_backg"
+                android:fontFamily="AvenirNextCondensed"
+                android:gravity="left|center"
+                android:paddingLeft="10dp"
+                android:text="@string/bank_account_info"
+                android:textColor="@color/White"
+               android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/imageView_send_personal_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/frnd_background"
+            android:orientation="horizontal"
+            android:padding="3dp" >
+
+            <ImageView
+                android:layout_width="50dp"
+                 android:layout_height="50dp"
+                android:background="#ffffff"
+                android:src="@drawable/friend_bg" />
+
+            <Button
+                android:id="@+id/friend_info"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/friend_back_bg"
+                android:fontFamily="AvenirNextCondensed"
+                android:gravity="left|center"
+                android:paddingLeft="10dp"
+                android:text="@string/friend_info"
+                android:textColor="@color/White"
+               android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/imageView_send_bookmark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/other_background"
+            android:orientation="horizontal"
+            android:padding="3dp" >
+
+            <ImageView
+                android:layout_width="50dp"
+                 android:layout_height="50dp"
+                android:background="#ffffff"
+                android:src="@drawable/other_info_icon" />
+
+            <Button
+                android:id="@+id/other_info"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/other_bg"
+                android:fontFamily="AvenirNextCondensed"
+                android:gravity="left|center"
+                android:paddingLeft="10dp"
+                android:text="@string/other_info"
+                android:textColor="@color/White"
+               android:textSize="15sp" />
+        </LinearLayout>
+        
+</LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+
+    <RelativeLayout
+        android:id="@+id/layout_sendAdapter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/imageView_view_more"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/view_more_icon" />
+
+        <TextView
+            android:id="@+id/send_adapter_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/imageView_view_more"
+            android:fontFamily="AvenirNextCondensed"
+            android:text="Testing test..."
+            android:textColor="@color/black"
+            android:textSize="20sp"
+             />
+
+        <CheckBox
+            android:id="@+id/checkBoxSendAdapter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="5dp"
+            android:button="@drawable/checkboxselector" />
+    </RelativeLayout>
+
+   <!--  <ImageView
+        android:id="@+id/dashed_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+         android:visibility="gone"
+        android:layout_below="@id/layout_sendAdapter"
+        android:background="@drawable/dashed_line" /> -->
+
+    <LinearLayout
+        android:id="@+id/lowerLayout_sendAdapter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout_sendAdapter"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        
+         android:layout_marginLeft="50dp"
+        android:weightSum="3" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+           
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:textSize="15sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/account_no"
+                android:textColor="@color/gray" />
+
+            <TextView
+                android:textSize="15sp"
+                android:id="@+id/accountNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="first" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:textSize="15sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/bankName"
+                android:textColor="@color/gray" />
+
+            <TextView
+                android:textSize="15sp"
+                android:id="@+id/bankName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="second" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+               android:gravity="center"
+                android:textSize="15sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/location"
+                android:textColor="@color/gray" />
+
+            <TextView
+                android:gravity="center"
+                android:textSize="15sp"
+                android:id="@+id/location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="third" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

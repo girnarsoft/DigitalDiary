@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bck_grnd"
+    android:id="@+id/forgotPage"
+    android:orientation="vertical">
+	
+   <include
+        android:id="@+id/header_login_page"
+        layout="@layout/header_footer" />
+    
+    <LinearLayout
+        android:id="@+id/username_text"
+        android:layout_below="@+id/header_login_page"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:orientation="vertical" 
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp">
+        
+        <TextView 
+            android:id="@+id/forgot_text"
+            android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="AvenirNextCondensed"
+                    android:text="LOGIN"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+            />
+        
+        <EditText
+            android:id="@+id/editText_security_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:textSize="20sp"
+            
+            android:layout_marginTop="10dp"
+            android:paddingLeft="5dp"
+            android:padding="5dp"
+            android:focusable="false"
+            android:background="@drawable/round_corner_edittext_back">
+        </EditText>
+        
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/pswd_text"
+        android:layout_below="@+id/username_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical" 
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp">
+        
+        <EditText
+            android:id="@+id/editText_answer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:textSize="20sp"
+            android:hint="Enter Answer"
+            android:paddingLeft="5dp"
+            android:padding="5dp"
+            
+			android:background="@drawable/round_corner_edittext_back">
+        </EditText>
+        
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/change_butn"
+        android:layout_below="@+id/pswd_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:orientation="vertical" 
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp">
+        
+        <Button
+            android:id="@+id/button_forgot_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Change Password"
+            android:textSize="20sp"
+            android:textColor="@color/white" 
+            android:background="@drawable/greenbutton"
+            android:padding="5dp"
+            >
+        </Button>
+        
+    </LinearLayout>
+    
+     <LinearLayout
+        android:id="@+id/pswd"
+        android:layout_below="@id/change_butn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical" 
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp">
+        
+        <EditText
+            android:id="@+id/editText_new_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:textSize="20sp"
+            android:hint="Enter New Password"
+            android:paddingLeft="5dp"
+            android:padding="5dp"
+            
+			android:background="@drawable/round_corner_edittext_back">
+        </EditText>
+        
+    </LinearLayout>
+    
+   
+     <LinearLayout
+        android:id="@+id/login_butn"
+        android:layout_below="@+id/pswd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical" 
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp">
+        
+        <Button
+            android:id="@+id/button_new_pass_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:textSize="20sp"
+            android:textColor="@color/white" 
+            android:background="@drawable/greenbutton"
+            android:padding="5dp"
+               
+            >
+        </Button>
+        
+    </LinearLayout>
+     <LinearLayout
+                android:id="@+id/field6_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/change_butn"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical" >
+
+                <EditText
+                    android:id="@+id/edittext_new_security_ques"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/round_corner_edittext_back"
+                    android:hint="Security Question"
+                    android:inputType="text"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="2dp"
+                    android:textSize="20sp"
+                   >
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/field7_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/field6_text"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical" >
+
+                <EditText
+                    android:id="@+id/edittext_new_security_answer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/round_corner_edittext_back"
+                    android:hint="Enter Your Answer"
+                    android:inputType="text"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="2dp"
+                    android:textSize="20sp"
+                      >
+                </EditText>
+            </LinearLayout>
+             <LinearLayout
+                android:id="@+id/layout_change_question_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/field7_text"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical" 
+                >
+
+                <Button
+                    android:id="@+id/button_change_question"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/greenbutton"
+                    android:padding="5dp"
+                    android:text="Submit"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                     >
+                </Button>
+            </LinearLayout>
+    
+    
+    <include layout="@layout/footer" 
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

@@ -1,0 +1,70 @@
+10
+
+dir
+12
+svn://202.157.95.151/gt-android-apps/DigitalDiary/res
+svn://202.157.95.151/gt-android-apps
+
+
+
+2013-08-13T12:11:07.639745Z
+12
+himanshu
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3a496b94-7aaf-4bae-a2cd-d854a2d26d9c
+
+values
+dir
+
+drawable
+dir
+
+drawable-hdpi
+dir
+
+layout-normal
+dir
+
+layout-small
+dir
+
+menu
+dir
+
+values-v11
+dir
+
+layout-large
+dir
+
+drawable-ldpi
+dir
+
+values-v14
+dir
+
+drawable-mdpi
+dir
+
+drawable-xhdpi
+dir
+
+layout
+dir
+
+layout-xlarge
+dir
+

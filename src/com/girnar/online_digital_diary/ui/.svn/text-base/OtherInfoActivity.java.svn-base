@@ -1,0 +1,217 @@
+package com.girnar.online_digital_diary.ui;
+
+import android.app.Activity;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.Toast;
+
+import com.girnar.online_digital_diary.database.DbHelper;
+import com.girnar.online_digital_diary.interfaces.ImportantMethod;
+import com.girnar.online_digital_diary.ui.R;
+import com.google.ads.Ad;
+import com.google.ads.AdListener;
+import com.google.ads.AdRequest;
+import com.google.ads.AdSize;
+import com.google.ads.AdView;
+import com.google.ads.AdRequest.ErrorCode;
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.Tracker;
+
+/**
+ * @author
+ * 
+ */
+public class OtherInfoActivity extends Activity implements ImportantMethod,
+		OnClickListener {
+	private Spinner banks_name;
+	private EditText account_no, location, holders_name;
+	private DbHelper db = new DbHelper(this);
+	private Button cancel, save;
+	private final String TAG = "OtherInfoActivity";
+	private Tracker tracker;
+	// private LinearLayout linearLayout;
+	private ImageView back, home;
+	private String bank[] = { "Punjab National Bank", "State Bank Of Bikaner",
+			"State Bank Of India", "Union Bank", "Allahabad Bank",
+			"Andhra Bank", "Bank of Baroda", "Bank of India",
+			"Bank of Maharashtra", "Canara Bank", "Central Bank of India",
+			"Corporation Bank", "Dena Bank", "IDBI Bank", "Indian Bank",
+			"Indian Overseas Bank", "Oriental Bank of Commerce",
+			"Punjab and Sind Bank", "Syndicate Bank", "UCO Bank",
+			"Union Bank of India", "United Bank of India", "Vijaya Bank" };
+
+	@SuppressWarnings("deprecation")
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		Log.d(TAG, "on create called...");
+		setContentView(R.layout.activity_other_info);
+		EasyTracker.getInstance().setContext(getApplicationContext());
+		tracker = EasyTracker.getTracker();
+		tracker.trackView("Account Information");
+		getIds();
+		addListener();
+		addGoogleAds();
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+				getApplicationContext(), R.layout.custom_spinner, bank);
+
+		banks_name.setAdapter(adapter);
+
+	}
+
+	void addGoogleAds() {
+		AdView adView = new AdView(this, AdSize.SMART_BANNER, getResources()
+				.getString(R.string.google_ads_id));
+		LinearLayout layout = (LinearLayout) findViewById(R.id.googleads);
+		layout.addView(adView);
+		AdRequest adRequest = new AdRequest();
+		final LinearLayout pBar = (LinearLayout) findViewById(R.id.gooleaddload);
+		pBar.setVisibility(View.VISIBLE);
+		// adRequest.addTestDevice(AdRequest.TEST_EMULATOR);
+		adView.setAdListener(new AdListener() {
+
+			@Override
+			public void onReceiveAd(Ad arg0) {
+				pBar.setVisibility(View.GONE);
+			}
+
+			@Override
+			public void onPresentScreen(Ad arg0) {
+			}
+
+			@Override
+			public void onLeaveApplication(Ad arg0) {
+			}
+
+			/*
+			 * @Override public void onFailedToReceiveAd(Ad arg0, ErrorCode
+			 * arg1) { }
+			 */
+			@Override
+			public void onDismissScreen(Ad arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onFailedToReceiveAd(Ad arg0, ErrorCode arg1) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+		adView.loadAd(adRequest);
+
+	}
+
+	@Override
+	public void getIds() {
+		// TODO Auto-generated method stub
+		banks_name = (Spinner) findViewById(R.id.spinner_bank_name_other_info);
+		cancel = (Button) findViewById(R.id.button_other_cancel);
+		back = (ImageView) findViewById(R.id.imageview_back_other_info);
+		home = (ImageView) findViewById(R.id.imageview_home_other_info);
+		save = (Button) findViewById(R.id.button_other_submit);
+		account_no = (EditText) findViewById(R.id.edittext_other_account_no);
+		holders_name = (EditText) findViewById(R.id.edittext_other_holders_name);
+		location = (EditText) findViewById(R.id.edittext_other_location);
+		// linearLayout = (LinearLayout)
+		// findViewById(R.id.layout_custom_spinner);
+
+	}
+
+	/**
+	 * get the value from the database
+	 */
+	public void databaseHelper() {
+		//
+
+		// TODO Auto-generated method stub
+		String account_no = this.account_no.getText().toString();
+		String holders_name = this.holders_name.getText().toString();
+		String banks_name = this.banks_name.getSelectedItem().toString();
+		String location = this.location.getText().toString();
+
+		db.open();
+		SharedPreferences preferences = PreferenceManager
+				.getDefaultSharedPreferences(this);
+		int id = preferences.getInt("id", 0);
+		db.insertinfoOther(holders_name, account_no, banks_name, location, id);
+
+		db.close();
+	}
+
+	@Override
+	public void addListener() {
+		// TODO Auto-generated method stub
+		cancel.setOnClickListener(this);
+		save.setOnClickListener(this);
+		back.setOnClickListener(this);
+		home.setOnClickListener(this);
+
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stubca
+		if (v == cancel) {
+			/*
+			 * Intent intent = new Intent(this, HomePageActivity.class);
+			 * startActivity(intent);
+			 */
+			finish();
+		}
+		if (v == back) {
+
+			finish();
+		}
+		if (v == save) {
+
+			boolean result = validate();
+			
+			if (result) {
+				databaseHelper();
+
+				finish();
+			}
+		}
+		if (v == home) {
+			OtherListviewInfoActivity.activity.finish();
+			finish();
+		}
+	}
+
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		finish();
+	}
+
+	@Override
+	public boolean validate() {
+		// TODO Auto-generated method stub
+		if (account_no.getText().toString().length() == 0) {
+			Toast.makeText(this, "Please fill account no.", Toast.LENGTH_SHORT)
+					.show();
+			return false;
+		} else if (location.getText().toString().length() == 0) {
+			Toast.makeText(this, "Please fill bank's name", Toast.LENGTH_SHORT)
+					.show();
+			return false;
+
+		} else {
+			return true;
+		}
+
+	}
+}

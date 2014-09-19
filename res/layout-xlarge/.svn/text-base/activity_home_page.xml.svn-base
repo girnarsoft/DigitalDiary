@@ -1,0 +1,153 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/backgroundimage"
+    android:orientation="vertical"
+    tools:context=".MainActivity" >
+
+    <include
+        android:id="@+id/header_other_info"
+        layout="@layout/header_footer" />
+
+    <include
+        android:id="@+id/footer_other_info"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        layout="@layout/footer" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="220dp"
+                android:gravity="center_horizontal" >
+
+                <ImageView
+                    android:id="@+id/imageView_home_personal_info"
+                    android:layout_width="170dip"
+                    android:layout_height="160dip"
+                    android:background="@drawable/next_button"
+                    android:src="@drawable/personalimage" />
+
+                <ImageView
+                    android:id="@+id/imageView_home_other_info"
+                    android:layout_width="170dip"
+                    android:layout_height="160dip"
+                    android:layout_marginLeft="120dp"
+                    android:background="@drawable/next_button"
+                    android:src="@drawable/user" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:weightSum="2" >
+
+                <TextView
+                    android:layout_width="148dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="@string/textview_home_page_personal_info"
+                    android:textColor="@color/darkcherryred   "
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="70dp"
+                    android:text="@string/textview_home_page_other_info"
+                    android:textColor="@color/darkcherryred   "
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:gravity="center_horizontal" >
+
+                <ImageView
+                    android:id="@+id/imageView_home_send_info"
+                    android:layout_width="170dip"
+                    android:layout_height="160dip"
+                    android:background="@drawable/next_button"
+                    android:src="@drawable/send" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/textview_home_page_send_info"
+                    android:textColor="@color/darkcherryred   "
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:gravity="center_horizontal" >
+
+                <ImageView
+                    android:id="@+id/imageView_home_remainder"
+                    android:layout_width="170dip"
+                    android:layout_height="160dip"
+                    android:background="@drawable/next_button"
+                    android:src="@drawable/awakenicon" />
+
+                <ImageView
+                    android:id="@+id/imageView_home_bookmark"
+                    android:layout_width="170dip"
+                    android:layout_height="160dip"
+                    android:layout_marginLeft="120dp"
+                    android:background="@drawable/next_button"
+                    android:src="@drawable/addbk" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:gravity="center_horizontal"
+                android:weightSum="2" >
+
+                <TextView
+                    android:layout_width="148dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/textview_home_page_reminder_info"
+                    android:textColor="@color/darkcherryred   "
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="90dp"
+                    android:text="@string/textview_home_page_bookmark_info"
+                    android:textColor="@color/darkcherryred   "
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

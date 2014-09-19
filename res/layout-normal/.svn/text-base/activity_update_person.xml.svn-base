@@ -1,0 +1,284 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/backgroundimage"
+    android:orientation="vertical"
+    tools:context=".MainActivity" >
+
+    <include
+        android:id="@+id/header_personal"
+        layout="@layout/header_footer" />
+
+    <include
+        android:id="@+id/footer_personal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        layout="@layout/footer" />
+
+    <RelativeLayout
+        android:id="@+id/textview_header"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/header_personal"
+        android:gravity="center_horizontal" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/blue"
+            android:gravity="center" >
+
+            <ImageView
+                android:id="@+id/imageview_home_update_info"
+                android:layout_width="40dip"
+                android:layout_height="30dip"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/black" />
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="40dip"
+                android:layout_marginLeft="20dp"
+                android:gravity="center"
+                android:text="@string/textView_personal_info"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imageview_back_update_info"
+                android:layout_width="50dip"
+                android:layout_height="30dip"
+                android:layout_gravity="center_vertical"
+                android:background="@color/blue"
+                android:src="@drawable/backpress" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/footer_personal"
+        android:layout_below="@id/textview_header" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:gravity="left" >
+
+                <ImageView
+                    android:id="@+id/imageView_person"
+                    android:layout_width="50dip"
+                    android:layout_height="50dip"
+                    android:src="@drawable/blankperson" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="horizontal" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="40dp"
+                        android:text="@string/textView_personal_info_name"
+                        android:textColor="@color/darkcherryred   "
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/textView_personal_info_address"
+                        android:textColor="@color/darkcherryred   "
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/textView_personal_info_birthday"
+                        android:textColor="@color/darkcherryred   "
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/textView_personal_info_mobile"
+                        android:textColor="@color/darkcherryred   "
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/textView_personal_info_anniversary"
+                        android:textColor="@color/darkcherryred   "
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/textView_personal_info_email"
+                        android:textColor="@color/darkcherryred   "
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/textView_personal_info_age"
+                        android:textColor="@color/darkcherryred   "
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="170dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="40dp"
+                    android:orientation="vertical" >
+
+                    <EditText
+                        android:id="@+id/edittext_name_update_info"
+                        android:layout_width="150dip"
+                        android:layout_height="35dip"
+                        android:layout_marginLeft="15dp"
+                        android:hint="@string/textView_personal_info_name"
+                        android:imeOptions="actionDone"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/edittext_address_update_info"
+                        android:layout_width="150dip"
+                        android:layout_height="35dip"
+                        android:layout_marginLeft="15dp"
+                        android:hint="@string/textView_personal_info_address"
+                        android:imeOptions="actionDone"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/edittext_birthday_update_info"
+                        android:layout_width="150dip"
+                        android:layout_height="35dip"
+                        android:layout_marginLeft="15dp"
+                        android:focusable="false"
+                        android:hint="@string/textView_personal_info_birthday"
+                        android:imeOptions="actionDone"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/edittext_mobile_no_update_info"
+                        android:layout_width="150dip"
+                        android:layout_height="35dip"
+                        android:layout_marginLeft="15dp"
+                        android:hint="@string/textView_personal_info_mobile"
+                        android:imeOptions="actionDone"
+                        android:inputType="phone"
+                        android:maxLength="10"
+                        android:numeric="integer"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/edittext_aniversary_update_info"
+                        android:layout_width="150dip"
+                        android:layout_height="35dip"
+                        android:layout_marginLeft="15dp"
+                        android:focusable="false"
+                        android:hint="@string/textView_personal_info_anniversary"
+                        android:imeOptions="actionDone"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/edittext_email_update_info"
+                        android:layout_width="150dip"
+                        android:layout_height="35dip"
+                        android:layout_marginLeft="15dp"
+                        android:hint="@string/textView_personal_info_email"
+                        android:imeOptions="actionDone"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/edittext_age_update_info"
+                        android:layout_width="150dip"
+                        android:layout_height="35dip"
+                        android:layout_marginLeft="15dp"
+                        android:hint="@string/textView_personal_info_age"
+                        android:imeOptions="actionDone"
+                        android:inputType="numberSigned"
+                        android:maxLength="2"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/footer_personal"
+                android:layout_marginTop="20dp"
+                android:gravity="center_horizontal"
+                android:weightSum="3" >
+
+                <Button
+                    android:id="@+id/button_person_update_info_save"
+                    android:layout_width="40dip"
+                    android:layout_height="40dip"
+                    android:layout_weight="1"
+                    android:background="@drawable/buttoncolorchanger"
+                    android:text="@string/textView_personal_info_submit"
+                    android:textColor="@color/darkcherryred   "
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

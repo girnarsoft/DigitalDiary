@@ -1,0 +1,182 @@
+package com.girnar.online_digital_diary.ui;
+
+import android.app.Activity;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import com.girnar.online_digital_diary.database.DbHelper;
+import com.girnar.online_digital_diary.interfaces.ImportantMethod;
+import com.girnar.online_digital_diary.ui.R;
+import com.google.ads.Ad;
+import com.google.ads.AdListener;
+import com.google.ads.AdRequest;
+import com.google.ads.AdSize;
+import com.google.ads.AdView;
+import com.google.ads.AdRequest.ErrorCode;
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.Tracker;
+
+/**
+ * @author
+ * 
+ */
+public class TitleBookmarkActivity extends Activity implements ImportantMethod,
+		OnClickListener {
+	private Button save;
+	private EditText title, description;
+	private ImageView back, home;
+	private final String TAG = "TitleBookmarkActivity";
+	private DbHelper db = new DbHelper(this);
+	private Tracker tracker;
+
+	@SuppressWarnings("deprecation")
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		Log.d(TAG, "on create called...");
+		setContentView(R.layout.activity_title_bookmark);
+		EasyTracker.getInstance().setContext(getApplicationContext());
+		tracker = EasyTracker.getTracker();
+		tracker.trackView("Other Information");
+		getIds();
+		addListener();
+		addGoogleAds();
+	}
+
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		finish();
+	}
+
+	void addGoogleAds() {
+		AdView adView = new AdView(this, AdSize.SMART_BANNER, getResources()
+				.getString(R.string.google_ads_id));
+		LinearLayout layout = (LinearLayout) findViewById(R.id.googleads);
+		layout.addView(adView);
+		AdRequest adRequest = new AdRequest();
+		final LinearLayout pBar = (LinearLayout) findViewById(R.id.gooleaddload);
+		pBar.setVisibility(View.VISIBLE);
+		// adRequest.addTestDevice(AdRequest.TEST_EMULATOR);
+		adView.setAdListener(new AdListener() {
+
+			@Override
+			public void onReceiveAd(Ad arg0) {
+				pBar.setVisibility(View.GONE);
+			}
+
+			@Override
+			public void onPresentScreen(Ad arg0) {
+			}
+
+			@Override
+			public void onLeaveApplication(Ad arg0) {
+			}
+
+			/*
+			 * @Override public void onFailedToReceiveAd(Ad arg0, ErrorCode
+			 * arg1) { }
+			 */
+			@Override
+			public void onDismissScreen(Ad arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onFailedToReceiveAd(Ad arg0, ErrorCode arg1) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+		adView.loadAd(adRequest);
+
+	}
+
+	/**
+	 * insert the value in the database
+	 */
+	public void databaseHelper() {
+
+		// TODO Auto-generated method stub
+		String title = this.title.getText().toString();
+		String description = this.description.getText().toString();
+
+		db.open();
+		SharedPreferences preferences = PreferenceManager
+				.getDefaultSharedPreferences(this);
+		int id = preferences.getInt("id", 0);
+		db.insertinfoBookmark(title, description, id);
+
+		db.close();
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		if (v == back) {
+
+			finish();
+		} else if (v == save) {
+			System.out.println("in if...");
+			boolean result = validate();
+			System.out.println(result);
+			if (result) {
+				databaseHelper();
+
+				finish();
+
+			}
+		}
+		if (v == home) {
+
+			BookmarkActivity.activity.finish();
+			finish();
+		}
+
+	}
+
+	@Override
+	public void getIds() {
+		// TODO Auto-generated method stub
+		back = (ImageView) findViewById(R.id.imageview_back_title_bookmark);
+		home = (ImageView) findViewById(R.id.imageview_home_title_bookmark);
+		save = (Button) findViewById(R.id.button_title_bookmark_save);
+		title = (EditText) findViewById(R.id.edittext_bookmark_title);
+		description = (EditText) findViewById(R.id.edittext_bookmark_description);
+
+	}
+
+	@Override
+	public void addListener() {
+		// TODO Auto-generated method stub
+		back.setOnClickListener(this);
+		save.setOnClickListener(this);
+		home.setOnClickListener(this);
+	}
+
+	@Override
+	public boolean validate() {
+		if (title.getText().toString().length() == 0) {
+			Toast.makeText(this, "Please fill Title name", Toast.LENGTH_SHORT)
+					.show();
+			return false;
+		} else if (description.getText().toString().length() == 0) {
+			Toast.makeText(this, "Please fill Description", Toast.LENGTH_SHORT)
+					.show();
+			return false;
+		} else {
+			return true;
+		}
+	}
+}

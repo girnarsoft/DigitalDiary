@@ -1,0 +1,228 @@
+package com.girnar.online_digital_diary.ui;
+
+import java.util.ArrayList;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+
+import com.girnar.online_digital_diary.database.DbHelper;
+import com.girnar.online_digital_diary.interfaces.ImportantMethod;
+import com.girnar.online_digital_diary.ui.R;
+import com.google.ads.Ad;
+import com.google.ads.AdListener;
+import com.google.ads.AdRequest;
+import com.google.ads.AdSize;
+import com.google.ads.AdView;
+import com.google.ads.AdRequest.ErrorCode;
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.Tracker;
+
+/**
+ * @author
+ * 
+ */
+public class OtherListviewInfoActivity extends Activity implements
+		ImportantMethod, OnClickListener, OnItemClickListener {
+	private Button New;
+	private ListView listView;
+	private final String TAG = "OtherListviewInfoActivity";
+	/**
+	 * reference of OtherListviewInfoActivity
+	 */
+	public static OtherListviewInfoActivity activity;
+	private DbHelper db = new DbHelper(this);
+	private Tracker tracker;
+	private ImageView back, home;
+	private ArrayList<String> data = new ArrayList<String>();
+	private ArrayList<String> ids = new ArrayList<String>();
+
+	@SuppressWarnings("deprecation")
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		Log.d(TAG, "on create called...");
+		activity = this;
+		setContentView(R.layout.activity_other_listview_info);
+		EasyTracker.getInstance().setContext(getApplicationContext());
+		tracker = EasyTracker.getTracker();
+		tracker.trackView("List of Account information");
+		getIds();
+		addListener();
+		addGoogleAds();
+		db.open();
+		SharedPreferences preferences = PreferenceManager
+				.getDefaultSharedPreferences(this);
+		int id = preferences.getInt("id", 0);
+		Cursor cursor = db.getInfoOther(id);
+		db.close();
+		if (cursor != null) {
+			cursor.moveToFirst();
+
+			for (int i = 0; i < cursor.getCount(); i++) {
+				ids.add(cursor.getString(0));
+				data.add(cursor.getString(1));
+
+				cursor.moveToNext();
+			}
+		}
+
+		CustomAdapter adapter = new CustomAdapter(
+				OtherListviewInfoActivity.this, data, ids, "OTHERINFO",
+				"account_no_id");
+		listView.setAdapter(adapter);
+
+	}
+
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		finish();
+	}
+
+	@Override
+	protected void onRestart() {
+		// TODO Auto-generated method stub
+		super.onRestart();
+		ids.clear();
+		data.clear();
+		db.open();
+		SharedPreferences preferences = PreferenceManager
+				.getDefaultSharedPreferences(this);
+		int id = preferences.getInt("id", 0);
+		Cursor cursor = db.getInfoOther(id);
+		db.close();
+		if (cursor != null) {
+			cursor.moveToFirst();
+			for (int i = 0; i < cursor.getCount(); i++) {
+				ids.add(cursor.getString(0));
+				data.add(cursor.getString(1));
+
+				cursor.moveToNext();
+			}
+		}
+
+		CustomAdapter adapter = new CustomAdapter(
+				OtherListviewInfoActivity.this, data, ids, "OTHERINFO",
+				"account_no_id");
+		listView.setAdapter(adapter);
+	}
+
+	void addGoogleAds() {
+		AdView adView = new AdView(this, AdSize.SMART_BANNER, getResources()
+				.getString(R.string.google_ads_id));
+		LinearLayout layout = (LinearLayout) findViewById(R.id.googleads);
+		layout.addView(adView);
+		AdRequest adRequest = new AdRequest();
+		final LinearLayout pBar = (LinearLayout) findViewById(R.id.gooleaddload);
+		pBar.setVisibility(View.VISIBLE);
+
+		adView.setAdListener(new AdListener() {
+
+			@Override
+			public void onReceiveAd(Ad arg0) {
+				pBar.setVisibility(View.GONE);
+			}
+
+			@Override
+			public void onPresentScreen(Ad arg0) {
+			}
+
+			@Override
+			public void onLeaveApplication(Ad arg0) {
+			}
+
+			/*
+			 * @Override public void onFailedToReceiveAd(Ad arg0, ErrorCode
+			 * arg1) { }
+			 */
+			@Override
+			public void onDismissScreen(Ad arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onFailedToReceiveAd(Ad arg0, ErrorCode arg1) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+		adView.loadAd(adRequest);
+
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> arg0, View arg1, int index, long arg3) {
+		// TODO Auto-generated method stub
+		@SuppressWarnings("unused")
+		String data = this.data.get(index);
+		String id = this.ids.get(index);
+
+		Intent intent = new Intent(this, OtherInfoShowActivity.class);
+		intent.putExtra("id", Integer.parseInt(id));
+		startActivity(intent);
+
+	}
+
+	@Override
+	public void getIds() {
+		// TODO Auto-generated method stub
+		New = (Button) findViewById(R.id.button_other_info_new_listview);
+		back = (ImageView) findViewById(R.id.imageview_back_listview_other_info);
+		home = (ImageView) findViewById(R.id.imageview_home_listview_other_info);
+		listView = (ListView) findViewById(R.id.other_info_listView);
+
+	}
+
+	@Override
+	public void addListener() {
+		// TODO Auto-generated method stub
+		New.setOnClickListener(this);
+		back.setOnClickListener(this);
+		home.setOnClickListener(this);
+		listView.setOnItemClickListener(this);
+
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		if (v == New) {
+			Intent intent = new Intent(this, OtherInfoActivity.class);
+			startActivity(intent);
+
+		}
+		if (v == back) {
+
+			finish();
+
+		}
+		if (v == home) {
+
+			finish();
+
+		}
+
+	}
+
+	@Override
+	public boolean validate() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+}
